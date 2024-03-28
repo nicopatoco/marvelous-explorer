@@ -29,7 +29,7 @@ export const getCharacters = createAsyncThunk(
     }
 
     // Require by the Api, we need to generate the hash using public and private key
-    const litmit = 50
+    const litmit = 100
     const timestamp = new Date().getTime()
     const publicKey = `${process.env.PUBLIC_MARVEL_API_KEY}`
     const privateKey = `${process.env.PRIVATE_MARVEL_API_KEY}`
@@ -40,7 +40,10 @@ export const getCharacters = createAsyncThunk(
     try {
       const res: MarvelApiResponse = (await axios.get(apiUrl)).data
       dispatch(charactersSlice.actions.updateLastFetch(now()))
+      // Just for the challenge, I want to have all the images
       return res.data.results
+        .filter((c) => !c.thumbnail.path.toLowerCase().includes('image_not_available'))
+        .slice(0, 50)
     } catch (error) {
       if (axios.isAxiosError(error)) {
         return rejectWithValue(error.message)

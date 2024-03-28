@@ -27,9 +27,9 @@ export default function CharactersPage() {
 
   return (
     <>
-      {filteredCharacters?.length > 0 && (
+      {characters?.length > 0 && (
         <>
-          <div className="flex flex-col px-12 pt-12">
+          <div className="flex flex-col p-12 xg:p-4 md:p-8 sm:p-4">
             <div className="flex flex-row justify-start gap-4">
               <img src="/search.svg" alt="search logo" className="customSearchImg" />
               <input
@@ -41,8 +41,10 @@ export default function CharactersPage() {
             </div>
             <div className="my-4 border-t border-black"></div>
             <div className="text-black">{filteredCharacters.length} RESULTS</div>
+            <div className="pt-4">
+              <CharacterList characters={filteredCharacters} />
+            </div>
           </div>
-          <CharacterList characters={filteredCharacters} />
         </>
       )}
     </>
