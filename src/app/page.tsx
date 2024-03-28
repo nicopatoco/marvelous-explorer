@@ -1,12 +1,14 @@
 'use client'
-import { useState } from 'react'
-import Header from './components/Header'
+import { Provider } from 'react-redux'
+import { store } from './state/store'
+import App from './(pages)/page'
 
 export default function Home() {
-  const [items, setItems] = useState<number>(0)
   return (
     <main>
-      <Header items={items} />
+      <Provider store={store}>
+        <App />
+      </Provider>
     </main>
   )
 }
