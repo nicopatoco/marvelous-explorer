@@ -20,12 +20,12 @@ const initialState: CharactersState = {
 export const getCharacters = createAsyncThunk(
   'characters/getCharacters',
   async (_, { getState, dispatch, rejectWithValue }) => {
-    const state = getState() as CharactersState
+    const state = getState() as { characters: CharactersState }
 
     // This is a personal approach, in a normal situation there is a requirement
     // Check if the lastFetch is more than one day old
-    if (state.lastFetch && now() - state.lastFetch < oneDay()) {
-      return state.characters
+    if (state.characters.lastFetch && now() - state.characters.lastFetch < oneDay()) {
+      return state.characters.characters
     }
 
     // Require by the Api, we need to generate the hash using public and private key
