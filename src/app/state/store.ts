@@ -1,9 +1,11 @@
 import { configureStore } from '@reduxjs/toolkit'
 import charactersReducer from './charactersSlice'
+import comicsReducer from './comicSlice'
 
 export const store = configureStore({
   reducer: {
     characters: charactersReducer,
+    comics: comicsReducer,
   },
 })
 
