@@ -5,6 +5,7 @@ import { Character, MarvelApiResponse } from '../types/character'
 
 interface CharactersState {
   characters: Character[]
+  favourites: string[]
   lastFetch: number | null // Timestamp of the last fetch
   loading: boolean
   error: string | null
@@ -12,6 +13,7 @@ interface CharactersState {
 
 const initialState: CharactersState = {
   characters: [],
+  favourites: [],
   lastFetch: null,
   loading: false,
   error: null,
@@ -61,6 +63,12 @@ const charactersSlice = createSlice({
     updateLastFetch: (state, action: PayloadAction<number>) => {
       state.lastFetch = action.payload
     },
+    addFavourite: (state, action: PayloadAction<string>) => {
+      state.favourites.push(action.payload)
+    },
+    removeFavourite: (state, action: PayloadAction<string>) => {
+      state.favourites = state.favourites.filter((id) => id !== action.payload)
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -80,4 +88,5 @@ const charactersSlice = createSlice({
   },
 })
 
+export const { addFavourite, removeFavourite } = charactersSlice.actions
 export default charactersSlice.reducer
