@@ -26,11 +26,8 @@ const initialState: ComicsState = {
 export const getComics = createAsyncThunk(
   'comics/getComics',
   async (characterId: string, { getState, rejectWithValue }) => {
-    console.log(`entro`)
     const state = getState() as { comics: ComicsState }
     const comicCache = state.comics.characterComics.find((c) => c.key.toString() === characterId)
-
-    console.log(`salio`)
 
     // This is a personal approach, in a normal situation there is a requirement
     // Check if the lastFetch is more than one day old
@@ -40,7 +37,7 @@ export const getComics = createAsyncThunk(
 
     try {
       // Require by the Api, we need to generate the hash using public and private key
-      const litmit = 10
+      const litmit = 20
       const timestamp = new Date().getTime()
       const publicKey = `${process.env.PUBLIC_MARVEL_API_KEY}`
       const privateKey = `${process.env.PRIVATE_MARVEL_API_KEY}`

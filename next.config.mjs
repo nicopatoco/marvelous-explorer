@@ -6,6 +6,10 @@ const nextConfig = {
         protocol: 'https',
         hostname: 'i.annihil.us',
       },
+      {
+        protocol: 'http',
+        hostname: 'i.annihil.us',
+      },
     ],
   },
   env: {
