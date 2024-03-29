@@ -20,24 +20,28 @@ export default function Header() {
         </Link>
         {favourites.length ? (
           <div className="flex flex-row items-center gap-2">
-            <Image
-              src="/state-selected.png"
-              alt="state selected"
-              className="items-start w-full h-full"
-              width="24"
-              height="21"
-            />
+            <Link href={'/favourites'}>
+              <Image
+                src="/state-selected.png"
+                alt="state selected"
+                className="items-start w-full h-full"
+                width="24"
+                height="21"
+              />
+            </Link>
             <div className="text-white">{favourites.length}</div>
           </div>
         ) : (
           <div className="flex flex-row items-center gap-2">
-            <Image
-              src="/state-unselected.png"
-              alt="state unselected"
-              className="items-start w-full h-full"
-              width="24"
-              height="21"
-            />
+            <Link href={'/favourites'}>
+              <Image
+                src="/state-unselected.png"
+                alt="state unselected"
+                className="items-start w-full h-full"
+                width="24"
+                height="21"
+              />
+            </Link>
           </div>
         )}
       </div>
