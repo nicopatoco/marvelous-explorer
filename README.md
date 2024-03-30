@@ -1,24 +1,43 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Visit Site
+
+This is a [App](https://marvelous-explorer.vercel.app/) project example.
 
 ## Getting Started
 
-First, run the development server:
+Config your .env , look at the example path: /.env.example
+
+Install the packages:
+
+```bash
+npm install
+# or
+yarn
+```
+
+Development Mode:
+Running Development Mode: Execute npm run dev or yarn dev in your terminal. This command starts the development server.
+Behavior: Assets are not minimized. Source maps are available. Hot reloading enables instant updates during code changes.
 
 ```bash
 npm run dev
 # or
 yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+Production Mode:
+Building for Production: Execute npm run build or yarn build. This command builds the application for production usage.
+Starting Production Server: After building, start your application in production mode with npm start or yarn start.
+Behavior: Assets are automatically minimized and optimized by Next.js. This includes CSS, JavaScript, and images through automatic image optimization when using the next/image component.
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+```bash
+npm run build
+npm run start
+# or
+yarn buid
+yarn start
+```
 
 ## Learn More
 
