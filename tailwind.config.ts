@@ -27,6 +27,10 @@ const config: Config = {
 
         '2xl': '1536px',
         // => @media (min-width: 1536px) { ... }
+        '3xl': '2100px',
+        // => @media (min-width: 2100px) { ... }
+        '4xl': '2560px',
+        // => @media (min-width: 2560px) { ... }
       },
     },
   },

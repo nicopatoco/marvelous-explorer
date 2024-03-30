@@ -15,7 +15,7 @@ export default function BannerCharacter({ character }: Props) {
   return (
     <div className="w-full text-white bg-black rounded-br-xl sm:pb-8">
       <div className="flex flex-col md:flex-row ">
-        <div className="flex w-full md:w-3/12 justify-center md:min-w-[320px] md:max-w-[320px] mb-0 bg-white">
+        <div className="flex w-full md:w-3/12 justify-center md:min-w-[320px] md:max-w-[320px] mb-0">
           <Image
             src={`${character.thumbnail.path}.${character.thumbnail.extension}`}
             alt={`Character ${character.id}`}

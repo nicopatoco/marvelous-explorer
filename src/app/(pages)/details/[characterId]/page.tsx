@@ -30,7 +30,9 @@ export default function Page({ params }: { params: { characterId: string } }) {
         ? character && (
             <>
               <BannerCharacter character={character} />
-              <ComicCarousel comics={comics} />
+              <div className="pb-4">
+                <ComicCarousel comics={comics} title="COMICS" />
+              </div>
             </>
           )
         : character && (
