@@ -1,8 +1,58 @@
-# Visit Site
+# Marvel Character Explorer
 
-This is a [App](https://marvelous-explorer.vercel.app/) project example.
+## Description
+
+Marvel Character Explorer is a Next.js application that allows users to browse and learn more about their favorite Marvel characters and comics. Utilizing the Marvel Comics API, this app presents a list of characters, their details, and associated comics in a user-friendly interface.
+
+## Features
+
+- Character Listing: Browse a list of Marvel characters.
+- Character Search: Find characters using the search functionality.
+- Favorites: Mark characters as favorites and view them separately.
+- Comic Carousel: Explore comics related to each character.
+
+## Technology Stack
+
+- Next.js: For server-side rendering and static generation.
+- React: For building the user interface.
+- Tailwind CSS: For styling components.
+- Redux Toolkit: For state management.
+- Vercel: For deployment and hosting.
+
+## Project Structure
+
+```bash
+/project-root
+    /public - Static files like images.
+    /components - Reusable UI components.
+    /pages - Application pages including the home page (page.tsx).
+    /function - fetch data from API.
+    /styles - Global styles and Tailwind configuration.
+    /hooks - Custom React hooks.
+    /state - Redux store and slices.
+    /types - TypeScript type definitions.
+```
 
 ## Getting Started
+
+### Prerequisites
+
+- Node.js (version 12 or later)
+- npm/yarn
+
+## Installation
+
+Clone the repository:
+
+```bash
+git clone https://github.com/yourusername/marvel-character-explorer.git
+```
+
+## Navigate to the project directory:
+
+```bash
+cd marvel-character-explorer
+```
 
 Config your .env , look at the example path: /.env.example
 
@@ -39,17 +89,16 @@ yarn buid
 yarn start
 ```
 
-## Learn More
+## Deployment
 
-To learn more about Next.js, take a look at the following resources:
+This project is set up to be easily deployed on Vercel, enabling automatic builds and deployments. Follow the Vercel deployment documentation for detailed instructions.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Contributing
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+Contributions are welcome! Please read our Contributing Guide for details on our code of conduct and the process for submitting pull requests to us.
 
-## Deploy on Vercel
+## Acknowledgments
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+- Marvel Comics API for providing character data.
+- Next.js and Vercel team for the amazing framework and deployment solutions.
+- The Tailwind CSS team for the utility-first CSS framework.
