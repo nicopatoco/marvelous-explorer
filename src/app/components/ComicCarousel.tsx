@@ -1,13 +1,11 @@
-import { Character } from '../types/character'
-import { Comic } from '../types/comic'
 import Image from 'next/image'
+import { Comic } from '../types/comic'
 
 interface Props {
   comics: Comic[]
-  character: Character
 }
 
-export default function ComicCarousel({ comics, character }: Props) {
+export default function ComicCarousel({ comics }: Props) {
   return (
     <>
       <div className="container px-8">
@@ -21,7 +19,6 @@ export default function ComicCarousel({ comics, character }: Props) {
                   alt={`Comic ${comic.id}`}
                   width={179.2}
                   height={268.8}
-                  layout="fixed"
                 />
                 <div className="mt-2 text-sm text-left">{comic.title}</div>
               </div>

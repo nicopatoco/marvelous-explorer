@@ -20,7 +20,6 @@ export default function BannerCharacter({ character }: Props) {
             alt={`Character ${character.id}`}
             width={320}
             height={320}
-            layout="fixed"
           />
         </div>
         <div className="flex flex-col justify-center w-9/12 pl-16 pr-8">
