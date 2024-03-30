@@ -7,40 +7,33 @@ import useCharacters from '@/app/hooks/useCharacters'
 import useComics from '@/app/hooks/useComics'
 
 export default function Page({ params }: { params: { characterId: string } }) {
-  const { comics, loading, error } = useComics(params.characterId)
+  const { comics, loading: loadingComics, error: errorComics } = useComics(params.characterId)
   const { characters, loading: loadingCharacters, error: errorCharacters } = useCharacters()
   const character = characters.find((c) => c.id.toString() === params?.characterId)
 
-  if (loading || loadingCharacters) {
+  if (loadingComics || loadingCharacters) {
     return <LoadingDisplay />
   }
 
-  if (error || errorCharacters) {
-    if (error) {
-      return <ErrorDisplay error={error} />
-    }
-    if (errorCharacters) {
-      return <ErrorDisplay error={errorCharacters} />
-    }
+  const error = errorComics || errorCharacters
+  if (error) {
+    return <ErrorDisplay error={error} />
+  }
+
+  if (!character) {
+    return <div className="p-8 text-4xl">Character not found.</div>
   }
 
   return (
     <>
-      {comics.length > 0
-        ? character && (
-            <>
-              <BannerCharacter character={character} />
-              <div className="pb-4">
-                <ComicCarousel comics={comics} title="COMICS" />
-              </div>
-            </>
-          )
-        : character && (
-            <>
-              <BannerCharacter character={character} />
-              <div className="p-8 text-4xl">There is no comics</div>
-            </>
-          )}
+      <BannerCharacter character={character} />
+      {comics.length > 0 ? (
+        <div className="pb-4">
+          <ComicCarousel comics={comics} title="COMICS" />
+        </div>
+      ) : (
+        <div className="p-8 text-4xl">There are no comics.</div>
+      )}
     </>
   )
 }
