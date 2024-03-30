@@ -1,6 +1,7 @@
 import { PayloadAction, createAsyncThunk, createSlice } from '@reduxjs/toolkit'
 import axios from 'axios'
-import { generateMD5, now, oneDay } from '../functions/utils'
+import { fetchCharactersWithOffset } from '../functions/fetchCharacters'
+import { now, oneDay } from '../functions/utils'
 import { Character, MarvelApiResponse } from '../types/character'
 
 interface CharactersState {
@@ -15,7 +16,7 @@ const initialState: CharactersState = {
   characters: [],
   favourites: [],
   lastFetch: null,
-  loading: false,
+  loading: true,
   error: null,
 }
 
@@ -30,17 +31,8 @@ export const getCharacters = createAsyncThunk(
       return state.characters.characters
     }
 
-    // Require by the Api, we need to generate the hash using public and private key
-    const litmit = 100
-    const timestamp = new Date().getTime()
-    const publicKey = `${process.env.PUBLIC_MARVEL_API_KEY}`
-    const privateKey = `${process.env.PRIVATE_MARVEL_API_KEY}`
-    const hash = generateMD5(timestamp + privateKey + publicKey)
-
-    const apiUrl = `https://gateway.marvel.com/v1/public/characters?limit=${litmit}&ts=${timestamp}&apikey=${publicKey}&hash=${hash}`
-
     try {
-      const res: MarvelApiResponse = (await axios.get(apiUrl)).data
+      const res: MarvelApiResponse = await fetchCharactersWithOffset(0, 100)
       dispatch(charactersSlice.actions.updateLastFetch(now()))
       // Just for the challenge, I want to have all the images
       return res.data.results
@@ -78,7 +70,13 @@ const charactersSlice = createSlice({
       })
       .addCase(getCharacters.fulfilled, (state, action) => {
         const characters = action.payload
-        state.characters = characters
+        state.characters = characters.map((c) => ({
+          ...c, // Spread operator to copy existing character properties
+          thumbnail: {
+            ...c.thumbnail, // Existing thumbnail properties
+            path: c.thumbnail.path.replace('http:', 'https:'), // Replace http with https in the path
+          },
+        }))
         state.loading = false
       })
       .addCase(getCharacters.rejected, (state, action) => {

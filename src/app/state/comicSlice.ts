@@ -1,6 +1,7 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
 import axios from 'axios'
-import { generateMD5, now, oneDay } from '../functions/utils'
+import { fetchComicsForCharacterWithOffset } from '../functions/fetchComics'
+import { now, oneDay } from '../functions/utils'
 import { Comic, MarvelComicApiResponse } from '../types/comic'
 
 interface CharacterComics {
@@ -19,7 +20,7 @@ interface ComicsState {
 const initialState: ComicsState = {
   characterComics: [],
   comics: [],
-  loading: false,
+  loading: true,
   error: null,
 }
 
@@ -36,18 +37,8 @@ export const getComics = createAsyncThunk(
     }
 
     try {
-      // Require by the Api, we need to generate the hash using public and private key
-      const litmit = 20
-      const timestamp = new Date().getTime()
-      const publicKey = `${process.env.PUBLIC_MARVEL_API_KEY}`
-      const privateKey = `${process.env.PRIVATE_MARVEL_API_KEY}`
-      const hash = generateMD5(timestamp + privateKey + publicKey)
-      const type = 'comic'
-
-      const apiUrl = `https://gateway.marvel.com:443/v1/public/characters/${characterId}/comics?formatType=${type}&limit=${litmit}&ts=${timestamp}&apikey=${publicKey}&hash=${hash}`
-
-      const res: MarvelComicApiResponse = (await axios.get(apiUrl)).data
-
+      // In case that I want all the comics, I just call this function in a while until a fetch the total comics.
+      const res: MarvelComicApiResponse = await fetchComicsForCharacterWithOffset(characterId)
       return { characterId, comics: res.data.results, isCache: false }
     } catch (error) {
       if (axios.isAxiosError(error)) {
@@ -71,12 +62,20 @@ const comicsSlice = createSlice({
       .addCase(getComics.fulfilled, (state, action) => {
         const { characterId, comics, isCache } = action.payload
 
+        const parseComics = comics.map((c) => ({
+          ...c, // Spread operator to copy existing comic properties
+          thumbnail: {
+            ...c.thumbnail, // Existing thumbnail properties
+            path: c.thumbnail.path.replace('http:', 'https:'), // Replace http with https in the path
+          },
+        }))
+
         const index = state.characterComics.findIndex((c) => c.key === characterId)
         if (index === -1) {
           // Add a new list of comics with current timestamp
           state.characterComics.push({
             key: characterId,
-            value: comics,
+            value: parseComics,
             lastFetch: now(),
           })
         } else {
@@ -85,10 +84,10 @@ const comicsSlice = createSlice({
             state.characterComics[index].lastFetch = now()
           }
           // Update existing list of comics
-          state.characterComics[index].value = comics
+          state.characterComics[index].value = parseComics
         }
         // To save the comics in the context
-        state.comics = comics
+        state.comics = parseComics
         state.loading = false
       })
       .addCase(getComics.rejected, (state, action) => {
