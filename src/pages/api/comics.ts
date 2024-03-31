@@ -1,13 +1,10 @@
+import { generateMD5 } from '@/app/functions/utils'
 import axios from 'axios'
-import { MarvelComicApiResponse } from '../types/comic'
-import { generateMD5 } from './utils'
+import { NextApiRequest, NextApiResponse } from 'next'
 
-export async function fetchComicsForCharacterWithOffset(
-  characterId: string,
-  offset = 0,
-  limit = 20,
-  orderBy = 'onsaleDate'
-) {
+export default async function handler(req: NextApiRequest, res: NextApiResponse) {
+  const { offset = '0', limit = '20', orderBy = 'onsaleDate', characterId } = req.query
+
   const baseUrl = process.env.BASE_CHARACTER_URL
   const timestamp = new Date().getTime()
   const publicKey = `${process.env.PUBLIC_MARVEL_API_KEY}`
@@ -18,9 +15,9 @@ export async function fetchComicsForCharacterWithOffset(
   const apiUrl = `${baseUrl}/${characterId}/comics?&orderBy=${orderBy}&limit=${limit}&ts=${timestamp}&apikey=${publicKey}&hash=${hash}&offset=${offset}`
 
   try {
-    const res: MarvelComicApiResponse = (await axios.get(apiUrl)).data
-    return res
+    const response = await axios.get(apiUrl)
+    res.status(200).json(response.data)
   } catch (error) {
-    throw error
+    res.status(500).json({ message: 'Failed to fetch data from Marvel API' })
   }
 }

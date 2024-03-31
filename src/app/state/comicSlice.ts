@@ -1,6 +1,5 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
 import axios from 'axios'
-import { fetchComicsForCharacterWithOffset } from '../functions/fetchComics'
 import { now, oneDay } from '../functions/utils'
 import { Comic, MarvelComicApiResponse } from '../types/comic'
 
@@ -38,7 +37,7 @@ export const getComics = createAsyncThunk(
 
     try {
       // In case that I want all the comics, I just call this function in a while until a fetch the total comics.
-      const res: MarvelComicApiResponse = await fetchComicsForCharacterWithOffset(characterId)
+      const res: MarvelComicApiResponse = (await axios.get(`/api/comics?characterId=${characterId}`)).data
       return { characterId, comics: res.data.results, isCache: false }
     } catch (error) {
       if (axios.isAxiosError(error)) {

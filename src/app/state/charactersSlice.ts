@@ -1,6 +1,5 @@
 import { PayloadAction, createAsyncThunk, createSlice } from '@reduxjs/toolkit'
 import axios from 'axios'
-import { fetchCharactersWithOffset } from '../functions/fetchCharacters'
 import { now, oneDay } from '../functions/utils'
 import { Character, MarvelApiResponse } from '../types/character'
 
@@ -32,7 +31,7 @@ export const getCharacters = createAsyncThunk(
     }
 
     try {
-      const res: MarvelApiResponse = await fetchCharactersWithOffset(0, 100)
+      const res: MarvelApiResponse = (await axios.get('/api/characters?offset=0&limit=100&orderBy=name')).data
       dispatch(charactersSlice.actions.updateLastFetch(now()))
       // Just for the challenge, I want to have all the images
       return res.data.results
