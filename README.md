@@ -54,7 +54,7 @@ git clone https://github.com/yourusername/marvel-character-explorer.git
 cd marvel-character-explorer
 ```
 
-Config your .env , look at the example path: /.env.example
+Config your .env.local , look at the example path: /.env.example
 
 Install the packages:
 

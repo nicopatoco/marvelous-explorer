@@ -1,11 +1,14 @@
 'use client'
-import { Inter } from 'next/font/google'
+import { Roboto_Condensed } from 'next/font/google'
 import { Provider } from 'react-redux'
 import Header from './components/Header'
 import './globals.css'
 import { store } from './state/store'
 
-const inter = Inter({ subsets: ['latin'] })
+const roboto_condensed = Roboto_Condensed({
+  subsets: ['latin'],
+  display: 'swap',
+})
 
 export default function RootLayout({
   children,
@@ -14,7 +17,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={inter.className}>
+      <body className={roboto_condensed.className}>
         <Provider store={store}>
           <Header />
           {children}
