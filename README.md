@@ -93,6 +93,24 @@ yarn buid
 yarn start
 ```
 
+## Testing
+
+In order to run the Unit and Component tests.
+
+```bash
+npm run test
+# or
+yarn test
+```
+
+In order to run e2e test with crypress.
+
+```bash
+npm run cypress:open
+# or
+yarn cypress:open
+```
+
 ## Deployment
 
 This project is set up to be easily deployed on Vercel, enabling automatic builds and deployments. Follow the Vercel deployment documentation for detailed instructions.
