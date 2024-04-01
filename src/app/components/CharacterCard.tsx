@@ -34,6 +34,7 @@ export default function CharacterCard({ character }: { character: Character }) {
                   ? `Remove ${character.name} from favorites`
                   : `Add ${character.name} to favorites`
               }
+              data-testid="favorite-button"
               onClick={() =>
                 dispatch(
                   favourites.includes(character.id.toString())
