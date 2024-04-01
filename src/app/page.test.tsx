@@ -15,18 +15,17 @@ jest.mock('./hooks/useCharacters', () => ({
 // Cast useCharacters to its mocked type
 const mockUseCharacters = useCharacters as jest.MockedFunction<typeof useCharacters>
 
-// Mock reducer
-const initialState = {
-  characters: [],
-  favourites: [],
-  lastFetch: null,
-  loading: true,
-  error: null,
-}
-
 const customStore = configureStore({
   reducer: {
-    characters: (state = initialState) => {
+    characters: (
+      state = {
+        characters: [],
+        favourites: [],
+        lastFetch: null,
+        loading: true,
+        error: null,
+      }
+    ) => {
       return state
     },
   },

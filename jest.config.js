@@ -22,7 +22,7 @@ const customJestConfig = {
   },
 
   // If you have a setup file where you configure global variables, import jest-dom matchers, etc.
-  // setupFilesAfterEnv: ['<rootDir>/jest.setup.js'], // Adjust the path to your setup file
+  setupFilesAfterEnv: ['<rootDir>/jest.setup.js'], // Adjust the path to your setup file
 
   // Add any other Jest configuration options that you need below
 }
