@@ -13,23 +13,28 @@ export default function CharacterDisplay({ characters, setFilter, title }: Props
   return (
     <>
       {title && (
-        <div className="pt-12 pl-12 text-2xl font-bold xg:pt-4 md:pt-8 sm:pt-4 xg:pl-4 md:pl-8 sm:pl-4">{title}</div>
+        <h2 className="pt-12 pl-12 text-2xl font-bold xg:pt-4 md:pt-8 sm:pt-4 xg:pl-4 md:pl-8 sm:pl-4">{title}</h2>
       )}
       <div className="flex flex-col p-12 xg:p-4 md:p-8 sm:p-4">
         <div className="flex flex-row justify-start gap-4">
-          <img src="/search.svg" alt="search logo" className="customSearchImg" />
+          <label htmlFor="searchCharacter" className="sr-only">
+            Search for a character
+          </label>
+          <img src="/search.svg" alt="Search" className="customSearchImg" />
           <input
             className="w-full uppercase focus:outline-none"
             type="text"
             onChange={(e) => setFilter(e.target.value)}
             placeholder="SEARCH A CHARACTER..."
+            id="searchCharacter"
+            aria-label="Search characters"
           />
         </div>
         <div className="my-4 border-t border-black"></div>
-        <div className="text-black">{characters.length} RESULTS</div>
-        <div className="pt-4">
+        <p className="text-black">{characters.length} RESULTS</p>
+        <section className="pt-4">
           <CharacterList characters={characters} />
-        </div>
+        </section>
       </div>
     </>
   )
