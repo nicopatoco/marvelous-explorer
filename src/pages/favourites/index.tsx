@@ -1,12 +1,13 @@
 'use client'
-import { useMemo, useState } from 'react'
-import useCharacters from '@/app/hooks/useCharacters'
-import LoadingDisplay from '@/app/components/LoadingDisplay'
-import ErrorDisplay from '@/app/components/ErrorDisplay'
 import CharacterDisplay from '@/app/components/CharacterDisplay'
+import LoadingDisplay from '@/app/components/LoadingDisplay'
+import { useCharacters } from '@/app/context/CharactersContext'
+import { useFavourites } from '@/app/context/FavouriteCharactersContext'
+import { useMemo, useState } from 'react'
 
 export default function Page() {
-  const { characters, favourites, loading, error } = useCharacters()
+  const { characters } = useCharacters()
+  const { favourites } = useFavourites()
   const [filter, setFilter] = useState<string | undefined>(undefined)
 
   const favouritesCharacters = characters.filter((c) => favourites.includes(c.id.toString()))
@@ -18,12 +19,8 @@ export default function Page() {
     return favouritesCharacters
   }, [favouritesCharacters, filter])
 
-  if (loading) {
+  if (!characters) {
     return <LoadingDisplay />
-  }
-
-  if (error) {
-    return <ErrorDisplay error={error} />
   }
 
   return <CharacterDisplay characters={filteredCharacters} setFilter={setFilter} title="FAVOURITES" />

@@ -1,10 +1,9 @@
 import Image from 'next/image'
 import Link from 'next/link'
-import { useSelector } from 'react-redux'
-import { RootState } from '../state/store'
+import { useFavourites } from '../context/FavouriteCharactersContext'
 
 export default function Header() {
-  const favourites = useSelector((state: RootState) => state.characters.favourites)
+  const { favourites } = useFavourites()
 
   const favoriteIconAltText = favourites.length > 0 ? 'View favorites' : 'No favorites selected'
 
