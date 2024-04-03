@@ -13,10 +13,10 @@ type Repo = {
   error: string | null
 }
 
-export const getServerSideProps: GetServerSideProps<Repo> = async () => {
-  const offset = '0'
-  const limit = '100' // '50'
-  const orderBy = 'name'
+export const getServerSideProps: GetServerSideProps<Repo> = async (context) => {
+  const offset = context.query.offset || '0'
+  const limit = context.query.limit || '100'
+  const orderBy = context.query.orderBy || 'name'
 
   const baseUrl = process.env.BASE_CHARACTER_URL
   const timestamp = new Date().getTime()

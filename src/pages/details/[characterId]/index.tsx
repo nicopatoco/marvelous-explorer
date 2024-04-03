@@ -16,9 +16,9 @@ type Repo = {
 
 export const getServerSideProps: GetServerSideProps<Repo> = async (context) => {
   const characterId = context.params?.characterId
-  const offset = '0'
-  const limit = '20'
-  const orderBy = 'onsaleDate'
+  const offset = context.query.offset || '0'
+  const limit = context.query.limit || '20'
+  const orderBy = context.query.orderBy || 'onsaleDate'
 
   const baseUrl = process.env.BASE_CHARACTER_URL
   const timestamp = new Date().getTime()
