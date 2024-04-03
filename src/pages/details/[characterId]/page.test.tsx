@@ -2,9 +2,9 @@ import { MOCKED_CHARACTERS } from '@/app/tests/mockedCharacters'
 import { configureStore } from '@reduxjs/toolkit'
 import { render, screen } from '@testing-library/react'
 import { Provider } from 'react-redux'
-import useCharacters from '../../../hooks/useCharacters'
-import useComics from '../../../hooks/useComics'
-import Page from './page'
+import useCharacters from '../../../app/hooks/useCharacters'
+import useComics from '../../../app/hooks/useComics'
+import Page from '.'
 
 jest.mock('../../../hooks/useComics', () => ({
   __esModule: true,

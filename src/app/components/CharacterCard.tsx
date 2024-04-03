@@ -1,13 +1,10 @@
 import Image from 'next/image'
 import Link from 'next/link'
+import { useFavourites } from '../context/FavouriteCharactersContext'
 import { Character } from '../types/character'
-import { AppDispatch, RootState } from '../state/store'
-import { useDispatch, useSelector } from 'react-redux'
-import { addFavourite, removeFavourite } from '../state/charactersSlice'
 
 export default function CharacterCard({ character }: { character: Character }) {
-  const favourites = useSelector((state: RootState) => state.characters.favourites)
-  const dispatch = useDispatch<AppDispatch>()
+  const { favourites, addFavourite, removeFavourite } = useFavourites()
 
   return (
     <div className="flex flex-col" style={{ width: '172.5px', minHeight: '245.97px' }}>
@@ -36,11 +33,9 @@ export default function CharacterCard({ character }: { character: Character }) {
               }
               data-testid="favorite-button"
               onClick={() =>
-                dispatch(
-                  favourites.includes(character.id.toString())
-                    ? removeFavourite(character.id.toString())
-                    : addFavourite(character.id.toString())
-                )
+                favourites.includes(character.id.toString())
+                  ? removeFavourite(character.id.toString())
+                  : addFavourite(character.id.toString())
               }
               className="flex w-1/12 justify-center items-center"
             >

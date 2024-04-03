@@ -3,8 +3,8 @@ import { configureStore } from '@reduxjs/toolkit'
 import '@testing-library/jest-dom'
 import { render, screen } from '@testing-library/react'
 import { Provider } from 'react-redux'
-import useCharacters from '../../../app/hooks/useCharacters'
-import Page from './page'
+import useCharacters from '../../app/hooks/useCharacters'
+import Page from '.'
 
 // Explicitly cast the mocked function to jest.Mock
 jest.mock('../../../app/hooks/useCharacters', () => ({

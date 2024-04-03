@@ -1,7 +1,5 @@
 import Image from 'next/image'
-import { useDispatch, useSelector } from 'react-redux'
-import { addFavourite, removeFavourite } from '../state/charactersSlice'
-import { AppDispatch, RootState } from '../state/store'
+import { useFavourites } from '../context/FavouriteCharactersContext'
 import { Character } from '../types/character'
 
 interface Props {
@@ -9,8 +7,7 @@ interface Props {
 }
 
 export default function BannerCharacter({ character }: Props) {
-  const favourites = useSelector((state: RootState) => state.characters.favourites)
-  const dispatch = useDispatch<AppDispatch>()
+  const { favourites, addFavourite, removeFavourite } = useFavourites()
 
   return (
     <div className="w-full text-white bg-black rounded-br-xl sm:pb-8">
@@ -34,7 +31,7 @@ export default function BannerCharacter({ character }: Props) {
                   alt="state selected"
                   width={24}
                   height={21}
-                  onClick={() => dispatch(removeFavourite(character.id.toString()))}
+                  onClick={() => removeFavourite(character.id.toString())}
                   className=" min-w-[24px] max-w-[21px]"
                 />
               ) : (
@@ -43,7 +40,7 @@ export default function BannerCharacter({ character }: Props) {
                   alt="state unselected"
                   width={24}
                   height={21}
-                  onClick={() => dispatch(addFavourite(character.id.toString()))}
+                  onClick={() => addFavourite(character.id.toString())}
                 />
               )}
             </div>
